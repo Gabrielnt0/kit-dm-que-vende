@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Kit DM que Vende — gerador de respostas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet">
+
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f5f0;color:#1b1a18;font:16px/1.6 'DM Sans',Arial,sans-serif}
+.wrap{width:min(940px,calc(100% - 2rem));margin:0 auto;padding:2rem 0 4rem}
+h1,h2{font-family:'Fraunces',Georgia,serif;line-height:1.15;letter-spacing:-.02em;margin:0}
+h1{font-size:clamp(2rem,5vw,3rem)}h2{font-size:1.15rem;margin-bottom:.6rem}
+.eyebrow{font-size:.72rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#a5402a}
+.lead{color:#6d685f;max-width:65ch;margin:.8rem 0 1.8rem}
+.painel{background:#fffdf8;border:1px solid #ded8cc;padding:1.2rem;margin-bottom:1.5rem}
+label{display:block;font-size:.8rem;color:#6d685f;margin-bottom:.35rem}
+select,input{width:100%;padding:.7rem .8rem;border:1px solid #ded8cc;background:#fffdf8;font:inherit;border-radius:2px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:.9rem}
+button{margin-top:1rem;background:#a5402a;color:#fff;border:1px solid #a5402a;padding:.75rem 1.2rem;font:700 .95rem 'DM Sans',Arial,sans-serif;border-radius:2px;cursor:pointer}
+button:focus-visible,select:focus-visible,input:focus-visible{outline:3px solid #2f5d50;outline-offset:2px}
+.msg{background:#fffdf8;border:1px solid #ded8cc;padding:1rem;margin:.7rem 0;display:flex;gap:1rem;align-items:flex-start;justify-content:space-between}
+.msg p{margin:0;max-width:70ch}
+.msg button{margin:0;padding:.4rem .7rem;font-size:.8rem;background:transparent;color:#a5402a}
+.resultado{font-family:'Fraunces',Georgia,serif;font-size:2.2rem;color:#a5402a;margin-top:1rem}
+small{display:block;color:#6d685f;margin-top:1.5rem}
+.aviso{background:#efebe3;border-left:3px solid #a5402a;padding:.8rem 1rem;font-size:.9rem}
+</style>
+</head><body><div class="wrap">
+<p class="eyebrow">Ferramenta inclusa · funciona offline</p>
+<h1>Gerador de respostas prontas</h1>
+<p class="lead">104 mensagens, 13 situações. Escolha o cenário, confira os dados e copie. Nenhuma conta, nenhuma API.</p>
+<div class="painel">
+  <div class="grid">
+    <div><label for="situacao">Situação</label><select id="situacao"></select></div>
+    <div><label for="peca">Peça de exemplo</label><select id="peca"></select></div>
+  </div>
+  <button id="copiar-tudo" type="button">Copiar primeira mensagem</button>
+</div>
+<div id="mensagens"></div>
+<p class="aviso">As mensagens usam dados de exemplo do briefing. Ajuste preço, tamanho, cor e prazo antes de enviar. Nunca prometa estoque que você não tem.</p>
+<small><a href="index.html">Voltar para a página do produto</a></small>
+</div>
+<script id="dados" type="application/json">{"titulo": "Kit DM que Vende", "produtos": [{"nome": "vestido verde", "cor": "verde", "tamanho": "P e M", "preco": "R$ 129", "detalhe": "linho misto, modelagem solta"}, {"nome": "bolsa de linho", "cor": "areia", "tamanho": "único", "preco": "R$ 139", "detalhe": "bolso fundo e alça ajustável"}, {"nome": "brinco de linha encerada", "cor": "a sua escolha", "tamanho": "único", "preco": "R$ 45", "detalhe": "feito à mão, com pequena variação no acabamento"}], "situacoes": {"disponibilidade": {"titulo": "Tem disponível?", "mensagens": ["Tem sim: {produto} está disponível em {tamanho}. São 3 unidades. {preco}. Quer que eu separe?", "Sim, {produto} na cor {cor} tem disponível hoje. {preco}. Me diz o tamanho que eu confiro.", "Tem disponível. É {produto}, cor {cor}, {preco}. Se quiser, separo uma para você.", "Tenho sim. {produto} com 3 unidades, {preco}. Quer o tamanho {tamanho}?", "Disponível sim. {produto}, {cor}, {preco}. Envio até 1 dia útil após a confirmação. Quer seguir?", "Sim. {produto} em {cor} e {tamanho}, {preco}. Posso mandar foto com luz natural se ajudar.", "Tem sim, mas vale conferir: {produto} em {cor}, 3 unidades, {preco}. Quer que eu reserve?", "Temos {produto} disponível em {tamanho}, {preco}. Me fala a cor que eu vejo o que tem."]}, "valor": {"titulo": "Qual o valor?", "mensagens": ["O valor é {preco}. Pix e até 3x no cartão. O frete calculado pelo CEP.", "{produto} sai {preco}. Formas de pagamento: Pix e até 3x no cartão.", "É {preco}, Ana. Se quiser, eu calculo o frete com seu CEP.", "O preço é {preco}. Inclui {detalhe}. Me manda o CEP que eu fecho o valor do envio.", "{preco} é o valor do {produto}. Pix e até 3x no cartão. Envio até 1 dia útil após a confirmação.", "Fica {preco}. Consigo enviar até 1 dia útil após a confirmação depois da confirmação.", "É {preco}. Não tenho desconto ativo agora, mas posso te mandar as opções disponíveis.", "O valor é {preco}. Prefere Pix ou cartão? Pix e até 3x no cartão."]}, "parcelamento": {"titulo": "Pode parcelar?", "mensagens": ["Pode sim: Pix e até 3x no cartão. O valor é {preco}.", "Parcelo até 3x no cartão. No Pix é {preco} à vista.", "Sim, Pix e até 3x no cartão. Se quiser, eu te mando o link com as opções.", "Dá para parcelar em até 3x. O pedido entra em produção depois da confirmação.", "Aceito cartão em até 3x e Pix, Ana. {preco} em qualquer forma.", "Pode parcelar sim. Só me confirme o CEP para eu calcular o frete calculado pelo CEP.", "Sim. Pix e até 3x no cartão. Não cobro juros além do que o cartão mostrar.", "Parcelo em até 3x. Se preferir Pix, o valor é {preco}."]}, "outra_cor": {"titulo": "Tem outra cor?", "mensagens": ["Tem sim. Além do {cor}, tenho as opções que estão no catálogo. Quer que eu mande as fotos?", "Agora tenho {cor} disponível. As outras cores estão em reposição, sem data confirmada.", "Tenho sim, mas variam conforme o lote. Posso mandar foto das cores que tenho em mãos.", "Nesse modelo tenho {cor}. Se quiser outra, preciso conferir com o fornecedor e te aviso.", "Tem {cor} e mais uma opção em produção. Envio até 1 dia útil após a confirmação.", "A cor {cor} é a que está disponível agora. Não quero prometer uma cor que não tenho.", "Posso fazer sob encomenda na cor que você escolher, com prazo maior. Quer que eu consulte?", "Tenho sim. Me fala a cor que você procura e eu confiro se está em estoque."]}, "tamanho": {"titulo": "Qual o tamanho?", "mensagens": ["O {produto} tem {tamanho}. Medidas exatas eu mando numa foto do laço.", "Está disponível em {tamanho}. Se você me disser o que costuma usar, eu te ajudo a escolher.", "Tenho {tamanho}. A modelagem é {detalhe}, então vale conferir as medidas.", "O tamanho é {tamanho}. Posso mandar a tabela de medidas antes de você decidir.", "São 3 unidades no tamanho {tamanho}. Quer que eu separe?", "Tem {tamanho}. Se ficar entre dois tamanhos, me manda uma medida que eu comparo.", "Eu tenho {tamanho} disponível. Não quero dizer que serve antes de ver a sua medida.", "O {produto} vem em {tamanho}. Mando as medidas com prazer."]}, "vem_certinho": {"titulo": "Vem certinho?", "mensagens": ["A modelagem é {detalhe}. Me manda a medida que você costuma usar que eu te respondo com honestidade.", "Não posso garantir sem a sua medida. O {produto} é {detalhe}; posso mandar as medidas reais.", "Costuma dar certo para quem usa {tamanho}, mas cada corpo é diferente. Vale conferir a medida.", "Eu prefiro não prometer. Aqui estão as medidas: {detalhe}. Se quiser, comparo com as suas.", "Vale olhar a medida antes: {detalhe}. Me diz a sua e eu te falo o que indica.", "Não serve para todo mundo igual. Mando as medidas e você decide com calma.", "A peça é {detalhe}. Se você estiver entre tamanhos, me avisa que eu ajudo.", "Posso mandar foto com a medida na fita. Assim você vê antes de comprar."]}, "envio": {"titulo": "Quando envia?", "mensagens": ["Envio até 1 dia útil após a confirmação, depois da confirmação do pagamento.", "O envio é até 1 dia útil após a confirmação. Te mando o código de rastreio assim que postar.", "Posto até 1 dia útil após a confirmação. Se precisar para uma data específica, me avisa antes.", "Envio até 1 dia útil após a confirmação. Não prometo prazo menor que esse para não te enrolar.", "Saída até 1 dia útil após a confirmação, Ana. O rastreio vai por aqui mesmo.", "Costumo postar até 1 dia útil após a confirmação. Se atrasar, eu te aviso por mensagem.", "Envio até 1 dia útil após a confirmação. O frete calculado pelo CEP, calculado com seu CEP.", "Prazo de envio: até 1 dia útil após a confirmação. Me manda o CEP que eu já calculo o valor."]}, "frete": {"titulo": "Quanto custa o frete?", "mensagens": ["O frete calculado pelo CEP. Me manda o CEP que eu calculo o valor exato.", "Não chuto frete: ele calculado pelo CEP. Com seu CEP eu te dou o número certo.", "Eu calculo o frete pelo CEP. Manda o seu que eu respondo agora.", "Frete calculado pelo CEP. O valor do produto é {preco}, sem inclusão de envio.", "Vou precisar do CEP para calcular. Assim eu não te passo um valor errado.", "O envio sai conforme a região. Me manda o CEP e eu fecho a conta.", "Frete calculado pelo CEP. Se o valor ficar alto, me avisa que eu vejo as opções.", "Posso calcular agora: só me mandar o CEP. O produto é {preco}."]}, "vou_pensar": {"titulo": "Vou pensar", "mensagens": ["Sem pressa, Ana. Se quiser, mando as medidas ou mais fotos depois.", "Fico no aguardo. Qualquer dúvida sobre o {produto}, é só responder aqui.", "Sem problema. O orçamento de {preco} continua de pé quando você decidir.", "Tranquilo. Se ajudar, eu comparo com outra opção do catálogo.", "Sem pressa. Posso mandar uma foto com luz natural se isso ajudar na decisão.", "Combinado. Se você quiser, eu separo por um dia enquanto decide.", "Entendo. Não vou insistir — estou aqui se precisar de mais informação.", "Tudo bem, Ana. Obrigada por ter perguntado."]}, "mais_fotos": {"titulo": "Pode mandar mais fotos?", "mensagens": ["Claro. Mando agora com luz natural e sem filtro.", "Sim. Quer que eu mostre o {detalhe} de perto?", "Vou mandar algumas fotos reais do {produto}. Já volto.", "Pode sim. Prefere ver a peça vestida ou o detalhe do acabamento?", "Mando sim, sem editar. Assim você vê como é de verdade.", "Claro. Tenho foto da peça em {cor} e da medida com fita.", "Vou mandar por aqui mesmo. Se quiser um ângulo específico, me fala.", "Sim. Mando hoje e você me diz se ainda ficou alguma dúvida."]}, "desconto": {"titulo": "Tem desconto?", "mensagens": ["Não tenho desconto ativo agora. O valor é {preco} e o pagamento é Pix e até 3x no cartão.", "Agora não, Ana. Mas posso te mostrar outra opção do catálogo.", "Não faço desconto individual, mas se levar mais de uma eu calculo o frete conjunto.", "O preço é {preco}. Não vou inventar um desconto que não existe.", "Sem desconto no momento. Se entrar em promoção, eu te aviso por aqui.", "Não tenho cupom ativo. Posso parcelar em até 3x, se ajudar.", "Não consigo baixar o valor agora. Mas posso mandar mais fotos para você decidir.", "Prefiro manter o preço honesto: {preco}. Pix e até 3x no cartão."]}, "esgotado": {"titulo": "Esgotou. Quando volta?", "mensagens": ["Esgotou por agora. Não tenho data confirmada de reposição, mas te aviso quando chegar.", "Não tenho unidade agora. Posso te mostrar uma opção parecida, se quiser.", "Acabou. A reposição depende do fornecedor, então não vou prometer data.", "Sem estoque no momento. Se quiser, anoto seu interesse e te aviso.", "Esgotou sim. Tenho {produto} em outra cor, se fizer sentido.", "Não tenho previsão certa. Prefiro avisar depois do que dar uma data errada.", "Por enquanto não tenho. Se voltar, você é a primeira pessoa que eu aviso.", "Acabou, Ana. Posso sugerir outra peça com valor parecido."]}, "finalizar": {"titulo": "Quero fechar a compra", "mensagens": ["Ótimo, Ana. Me confirma o tamanho {tamanho} e o CEP que eu fecho o pedido.", "Perfeito. O {produto} fica {preco}. Pix e até 3x no cartão. Me manda o CEP para o frete.", "Vamos lá. Confirmo seu pedido: {produto} em {cor}, {preco}. Envio até 1 dia útil após a confirmação.", "Fechado. Manda o CEP que eu calculo o frete e te passo o link de pagamento.", "Obrigada, Ana. Confira: {produto}, {tamanho}, {preco}. Está certo?", "Ótimo. Depois do pagamento eu te mando o rastreio por aqui.", "Combinado. Me confirma o endereço com CEP para eu finalizar.", "Fechamos então. Qualquer dúvida depois da compra, é só me chamar."]}}, "total": 104}</script>
+<script>
+const dados = JSON.parse(document.getElementById('dados').textContent);
+const situacao = document.getElementById('situacao');
+const peca = document.getElementById('peca');
+const area = document.getElementById('mensagens');
+Object.entries(dados.situacoes).forEach(([chave, bloco]) => {
+  const opt = document.createElement('option'); opt.value = chave; opt.textContent = bloco.titulo; situacao.appendChild(opt);
+});
+dados.produtos.forEach((p, i) => {
+  const opt = document.createElement('option'); opt.value = i; opt.textContent = p.nome; peca.appendChild(opt);
+});
+function mensagens() {
+  const bloco = dados.situacoes[situacao.value];
+  const p = dados.produtos[peca.value] || {};
+  return bloco.mensagens.map(m => m
+    .replaceAll('{produto}', p.nome || '')
+    .replaceAll('{cor}', p.cor || '')
+    .replaceAll('{tamanho}', p.tamanho || '')
+    .replaceAll('{preco}', p.preco || '')
+    .replaceAll('{detalhe}', p.detalhe || ''));
+}
+function copiar(texto, botao) {
+  const done = () => { const antigo = botao.textContent; botao.textContent = 'Copiado'; setTimeout(() => botao.textContent = antigo, 1400); };
+  if (navigator.clipboard) navigator.clipboard.writeText(texto).then(done);
+  else { const t = document.createElement('textarea'); t.value = texto; document.body.appendChild(t); t.select(); document.execCommand('copy'); t.remove(); done(); }
+}
+function pintar() {
+  area.innerHTML = '';
+  mensagens().forEach((texto, i) => {
+    const div = document.createElement('div'); div.className = 'msg';
+    const p = document.createElement('p'); p.textContent = texto;
+    const b = document.createElement('button'); b.type = 'button'; b.textContent = 'Copiar';
+    b.addEventListener('click', () => copiar(texto, b));
+    div.appendChild(p); div.appendChild(b); area.appendChild(div);
+  });
+}
+situacao.addEventListener('change', pintar);
+peca.addEventListener('change', pintar);
+document.getElementById('copiar-tudo').addEventListener('click', e => copiar(mensagens()[0], e.target));
+pintar();
+</script></body></html>
